@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="stylesheet" href="QR Code Generator.css">
+    <title>QR Code Generator</title>
+</head>
+<body>
+    <marquee width="80%" direction="left" height="100px" scrollamount="6" >
+        <p id="pr">Paste the link to generate the qrcode for your link</p>
+    </marquee>
+
+    <h1 >
+        Enter the url
+    </h1>
+
+    
+
+    <input type="text" id="shit_here" placeholder="Enter" name="link" required><br>
+    <button id="generate">Generate QR Code</button>
+    
+    <!-- <p id="loader" class="loader">Generating....</p> -->
+    <div id="loader" class="loader"></div>
+    <img src="" id="QR_Code" alt="Your QR Code here!" title="Your QR Code here!">
+    
+    
+    
+    
+    
+</body>
+    <script>
+        // console.log("QR Code Generator!");
+
+        let link = document.getElementById("shit_here")
+        let generate = document.getElementById("generate")
+        let QR_Code = document.getElementById("QR_Code")
+
+        function QR_generator() {
+            let load = document.getElementById("loader")
+            load.style.display = "block"
+
+            let data = link.value
+            console.log(data)
+            let api = `http://api.qrserver.com/v1/create-qr-code/`
+            
+            let url = `${api}?data=${data}`
+
+            QR_Code.onload = function(){
+                QR_Code.style.marginTop = "35px"
+                load.style.display = "none"
+            }
+
+            QR_Code.src = url
+            QR_Code.style.display = "block"
+            
+            sessionStorage.setItem("User's Thing", data)
+        }
+        
+        generate.addEventListener("click", QR_generator)
+
+        
+    </script>
+
+</html>
